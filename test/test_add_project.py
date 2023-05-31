@@ -4,7 +4,7 @@ import string
 
 
 def test_add_project(app):
-    old_projects = app.soap.get_project_list("administrator", "root")
+    old_projects = app.soap.get_project_list()
     project_exists = True
     while project_exists:
         project_exists = False
@@ -13,7 +13,7 @@ def test_add_project(app):
             if p.name == project.name:
                 project_exists = True
     app.project.create(project)
-    new_projects = app.soap.get_project_list("administrator", "root")
+    new_projects = app.soap.get_project_list()
     assert len(old_projects) + 1 == len(new_projects)
     old_projects.append(project)
     assert sorted(old_projects, key=lambda x: x.name) == sorted(new_projects, key=lambda x: x.name)
